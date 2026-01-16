@@ -43,6 +43,5 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Run PHPStan (via script if configured, or direct install)
-        # Для начала просто проверим синтаксис всех файлов, так как phpstan не настроен
-        run: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress
