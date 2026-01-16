@@ -39,7 +39,7 @@ class ChatAdminBuilder
     public function permissions(array $permissions): self
     {
         $this->data['permissions'] = array_map(
-            fn($p) => $p instanceof ChatAdminPermission ? $p->value : $p,
+            fn(ChatAdminPermission $p) => $p->value,
             $permissions
         );
         return $this;

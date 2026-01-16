@@ -107,7 +107,7 @@ class Bot
     public function onCallbackQuery(string $pattern, callable $handler): self
     {
         return $this->onCallback(function (Update $update, Client $client) use ($pattern, $handler) {
-            $payload = $update->callback?->payload ?? '';
+            $payload = $update->callback->payload ?? ''; // Убрал ?->
             $isRegex = str_starts_with($pattern, '/') && strlen($pattern) > 1;
             
             if ($isRegex) {
@@ -125,8 +125,12 @@ class Bot
         $command = '/' . ltrim($command, '/');
         return $this->onMessage(function (Update $update, Client $client) use ($command, $handler) {
             $text = $update->message?->getText() ?? '';
+            if ($text === '') {
+                return;
+            }
+            
             $parts = explode(' ', $text);
-            $inputCommand = $parts[0] ?? '';
+            $inputCommand = $parts[0]; // PHPStan теперь знает, что 0-й элемент есть, так как текст не пустой
 
             if (strcasecmp($inputCommand, $command) === 0) {
                 $args = array_slice($parts, 1);

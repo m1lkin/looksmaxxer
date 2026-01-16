@@ -37,8 +37,8 @@ readonly class ContactPayload implements AttachmentPayload
         return array_filter([
             'name' => $this->name,
             'contact_id' => $this->contactId,
-            'vcf_info' => $this->vcf_info,
-            'vcf_phone' => $this->vcf_phone,
+            'vcf_info' => $this->vcfInfo,
+            'vcf_phone' => $this->vcfPhone,
         ], fn($v) => $v !== null);
     }
 }
